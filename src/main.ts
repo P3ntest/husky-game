@@ -1,3 +1,4 @@
+import { Sheep } from "./Passive";
 import { Player } from "./Player";
 import { Physics, PhysicsEntity } from "./engine/PhysicsEngine";
 import { Graphics } from "./engine/Renderer";
@@ -38,3 +39,7 @@ entity.transform.setPosition(new Vector(300, 300));
 const player = new Player();
 
 world.addEntity(player);
+
+const sheep = new Sheep();
+world.addEntity(sheep);
+sheep.transform.setPosition(new Vector(500, 500));

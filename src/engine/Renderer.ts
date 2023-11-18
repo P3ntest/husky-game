@@ -6,7 +6,7 @@ export class Renderer {
   app: PIXI.Application;
   constructor() {
     this.app = new PIXI.Application({
-      backgroundColor: 0x1099bb,
+      backgroundColor: 0x39821d,
       eventMode: "dynamic",
       eventFeatures: {
         globalMove: true,

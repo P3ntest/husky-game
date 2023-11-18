@@ -67,12 +67,6 @@ export class Player extends CharacterEntity {
   onInitGraphics(): void {
     const body = new Graphics.Graphics();
 
-    //collider outline
-    // body.lineStyle(1, 0x000000);
-    // body.beginFill(0x000000, 0);
-    // body.drawCircle(0, 0, 50);
-    // body.endFill();
-
     // draw a top down gray wolf
 
     // paws
@@ -82,8 +76,8 @@ export class Player extends CharacterEntity {
         // paw.pivot.set(0, 0);
         // paw.position.set(30 * forward - 10, 20 * side);
 
-        paw.beginFill(0xcccccc);
-        paw.lineStyle(5, 0xaaaaaa);
+        paw.beginFill(0x555555);
+        paw.lineStyle(5, 0xeeeeee);
         paw.drawEllipse(30 * forward - 10, 20 * side, 10, 10);
         paw.endFill();
         this.paws.push(paw);
@@ -93,8 +87,8 @@ export class Player extends CharacterEntity {
     this.container.addChild(...this.paws);
 
     // body
-    body.beginFill(0xcccccc);
-    body.lineStyle(5, 0xaaaaaa);
+    body.beginFill(0x333333);
+    body.lineStyle(5, 0x555555);
     body.drawRoundedRect(-50, -20, 80, 40, 12);
     body.endFill();
 
@@ -103,33 +97,42 @@ export class Player extends CharacterEntity {
     head.position.set(40, 0);
 
     // head
-    head.beginFill(0xcccccc);
-    head.lineStyle(5, 0xaaaaaa);
+    head.beginFill(0x333333);
+    head.lineStyle(5, 0x555555);
     head.drawEllipse(40, 0, 20, 20);
     head.endFill();
 
     // eyes
-    head.lineStyle(2, 0);
-    head.beginFill(0x1975e6);
-    head.drawEllipse(45, -8, 5, 5);
+    head.beginFill(0);
+    head.lineStyle(6, 0x1975e6);
+    head.beginFill();
+    head.drawEllipse(45, -8, 2, 2);
     head.endFill();
-    head.beginFill(0x8f5d31); //brown
-    head.drawEllipse(45, 8, 5, 5);
+    head.lineStyle(6, 0x8f5d31);
+    head.drawEllipse(45, 8, 2, 2);
     head.endFill();
 
     // nose
-    head.lineStyle(1, 0);
+    head.lineStyle(0, 0);
     head.beginFill(0x000000);
-    head.drawEllipse(60, 0, 3, 3);
+    head.drawEllipse(60, 0, 4, 4);
     head.endFill();
+
+    // ears
+    for (const side of [-1, 1]) {
+      head.beginFill(0xffffff);
+      head.lineStyle(5, 0x555555);
+      head.drawEllipse(25, 13 * side, 6, 6);
+      head.endFill();
+    }
 
     // tail
     const tail = new Graphics.Graphics();
     tail.pivot.set(-40, 0);
     tail.position.set(-40, 0);
 
-    tail.beginFill(0xcccccc);
-    tail.lineStyle(5, 0xaaaaaa);
+    tail.beginFill(0x333333);
+    tail.lineStyle(5, 0x555555);
     tail.drawRoundedRect(-80, -10, 40, 20, 20);
     tail.endFill();
 
