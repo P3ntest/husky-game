@@ -12,13 +12,13 @@ export class KeyboardController {
 
   registerDefaults() {
     this.axes["Horizontal"] = {
-      positive: ["ArrowRight", "d"],
-      negative: ["ArrowLeft", "a"],
+      positive: ["ArrowRight", "KeyD"],
+      negative: ["ArrowLeft", "KeyA"],
     };
 
     this.axes["Vertical"] = {
-      positive: ["ArrowUp", "w"],
-      negative: ["ArrowDown", "s"],
+      positive: ["ArrowUp", "KeyW"],
+      negative: ["ArrowDown", "KeyS"],
     };
   }
 
@@ -40,11 +40,17 @@ export class KeyboardController {
 
   onKeyDown(e: KeyboardEvent) {
     this.downKeys.add(e.key);
+    this.downKeys.add(e.code);
     this.newKeys.add(e.key);
+    this.newKeys.add(e.code);
+
+    e.preventDefault();
+    e.stopPropagation();
   }
 
   onKeyUp(e: KeyboardEvent) {
     this.downKeys.delete(e.key);
+    this.downKeys.delete(e.code);
   }
 }
 

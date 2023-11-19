@@ -174,7 +174,11 @@ export class Player extends CharacterEntity {
       this.transform.setRotation(newAngle);
     }
 
-    const maxSpeed = 8;
+    const maxSpeed = this.keyboardController.downKeys.has("ShiftLeft")
+      ? 8
+      : this.keyboardController.downKeys.has("AltLeft")
+      ? 2
+      : 5;
     const maxVelocity = movement.scale(maxSpeed);
     const currentVelocity = toVector(this.body.linvel());
     const acceleration = 0.2;
