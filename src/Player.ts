@@ -56,13 +56,22 @@ export class Player extends CharacterEntity {
 
     this.world.renderer.setCameraPosition(this.cameraPosition);
 
-    const attackAnimationState = tick - this.attachAnimationStarted;
-    if (attackAnimationState < 20) {
-      const headPosition = (attackAnimationState - 50) / 50;
-      const head = this.container.children[5];
-      head.position.set(-headPosition * 20 + 40, 0);
+    if (this.attacking) {
+      const attackAnimationState = tick - this.attachAnimationStarted;
+      if (attackAnimationState > 100) {
+        this.attacking = false;
+      }
+
+      const headPosition = 1 - -attackAnimationState / 100;
+      const head = this.headAttackContainer;
+      head.position.set(headPosition * 20, 0);
+    } else {
+      const head = this.headAttackContainer;
+      head.position.set(0, 0);
     }
   }
+
+  headAttackContainer = new Graphics.Graphics();
 
   onInitGraphics(): void {
     const body = new Graphics.Graphics();
@@ -92,9 +101,13 @@ export class Player extends CharacterEntity {
     body.drawRoundedRect(-50, -20, 80, 40, 12);
     body.endFill();
 
+    const headRotationBase = new Graphics.Graphics();
+    headRotationBase.pivot.set(35, 0);
+    headRotationBase.position.set(40, 0);
+
     const head = new Graphics.Graphics();
-    head.pivot.set(35, 0);
-    head.position.set(40, 0);
+    headRotationBase.addChild(head);
+    this.headAttackContainer = head;
 
     // head
     head.beginFill(0x333333);
@@ -136,7 +149,7 @@ export class Player extends CharacterEntity {
     tail.drawRoundedRect(-80, -10, 40, 20, 20);
     tail.endFill();
 
-    this.container.addChild(body, head, tail);
+    this.container.addChild(body, headRotationBase, tail);
   }
 
   paws: Graphics.Graphics[] = [];
@@ -148,6 +161,7 @@ export class Player extends CharacterEntity {
   pawMovement = 0;
 
   attachAnimationStarted = -100;
+  attacking = false;
 
   cameraPosition = new Vector(0, 0);
 
@@ -158,6 +172,7 @@ export class Player extends CharacterEntity {
 
     if (this.keyboardController.downKeys.has(" ")) {
       this.attachAnimationStarted = this.world.renderTicks;
+      this.attacking = true;
     }
     this.keyboardController.flushNewKeys();
 
